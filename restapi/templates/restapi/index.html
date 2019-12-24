@@ -1,0 +1,36 @@
+{% extends 'restapi/master.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Book List</h2>
+  <hr>
+  <div class="table-responsive">
+    <table class="table table-bordered table-stripped">
+        <thead>
+          <th>ID</th>
+          <th>Book Name</th>
+          <th>Author</th>
+          <th>Price</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          {% for b in books %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{b.title}}</td>
+              <td>{{b.author}}</td>
+              <td>{{b.price}}</td>
+              <td>
+                <a href="{% url 'restapi:edit' b.id %}" class="btn btn-sm btn-info">Edit</a> |
+                <a onclick="return( confirm('Are You Sure ?') )" href="{% url 'restapi:delete' b.id %}" class="btn btn-sm btn-danger">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <a href="{% url 'restapi:create' %}" class="btn btn-lg btn-primary">Add New</a>
+  </div>
+</div>
+{% endblock %}
